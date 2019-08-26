@@ -15,7 +15,7 @@ export class AnimationComponent implements OnInit, AfterViewInit, OnDestroy{
 
     this.spawner = interval(500).subscribe(
       {
-        next() {console.log('gg');}
+        next() {}
       }
     )
   }

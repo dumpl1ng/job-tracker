@@ -7,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AuthComponent implements OnInit {
 
+  private email: string;
+  private password: string;
+
   constructor() { }
 
   ngOnInit() {
