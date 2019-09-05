@@ -1,1 +1,19 @@
-<p>header works!</p>
+<nav class="navbar navbar-dark bg-primary">
+    <div class="container-fluid">
+
+        <div class="navbar-header">
+            <a routerLink="/" class="navbar-brand">JOB TRACKER</a>
+        </div>
+
+        <div class="nav navbar-nav">
+            <ul class="nav navbar-nav navbar-right">
+                <li class="nav-item active">
+                    <a class="nav-link" *ngIf="isAuthenticated">Log Out</a>
+                    <a class="nav-link" *ngIf="!isAuthenticated">Log In</a>
+                </li>
+            </ul>
+        </div>
+
+        
+    </div>
+</nav>
