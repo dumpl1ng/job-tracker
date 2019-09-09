@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Job } from '../job.model';
 
 @Component({
   selector: 'app-jobs-list',
@@ -7,7 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class JobsListComponent implements OnInit {
 
-  jobs = ['a', 'b', 'c']
+  jobs = [
+    new Job('test', 'Software Engineer', 'Hughes', 'offer', new Date()),
+    new Job('test', 'QA Engineer', 'test', 'offer', new Date())
+  ];
 
   constructor() { }
 

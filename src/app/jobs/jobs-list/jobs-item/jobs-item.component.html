@@ -1,1 +1,12 @@
-<p>jobs-item works!</p>
+<div class="job-item">
+    <span class="h5">{{job.title}}</span>
+    {{job.company}}
+    {{month(job.dateApplied.getMonth())}}
+    <span [ngClass]="{
+        'badge': true,
+        'badge-success': job.state == 'offer', 
+        'badge-warning': job.state == 'not applied',
+        'badge-danger': job.state == 'declined',
+        'badge-primary': job.state == 'interviewing',
+        'badge-secondary': job.state == 'no response'}">{{job.state}}</span>
+</div>

@@ -1,3 +1,5 @@
-<div id="list-holder" class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 offset-xs-2 offset-sm-2 offset-md-2 offset-lg-2 offset-xl-2">
-    <app-jobs-item *ngFor="let item of jobs"></app-jobs-item>
+<div id="list-holder" class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+    <ul class="list-group">
+        <li class="list-group-item" *ngFor="let job of jobs"><app-jobs-item [job]="job"></app-jobs-item></li>
+    </ul>
 </div>
