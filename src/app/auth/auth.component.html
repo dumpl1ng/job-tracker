@@ -16,6 +16,12 @@
             &nbsp;
             <button type="submit" class="btn btn-primary" id="sign-on" (click)="changeToSignUpMode()">Sign Up</button>
         </div>
+
+        <div *ngIf="isLoading">
+          <app-loading-spinner></app-loading-spinner>
+        </div>
       </form>
+
+      <ng-template appPlaceHolder></ng-template>
     </div>
   </div>

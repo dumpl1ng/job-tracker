@@ -1,9 +1,15 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthComponent } from './auth/auth.component';
+import { JobsComponent } from './jobs/jobs.component';
+import { PageNotFoundComponentComponent } from './page-not-found-component/page-not-found-component.component';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: '/auth', pathMatch: 'full'}
+  {path: 'auth', component: AuthComponent},
+  {path: 'jobs', component: JobsComponent},
+  {path: '', redirectTo: '/auth', pathMatch: 'full'},
+  {path: '**', component: PageNotFoundComponentComponent}
 ];
 
 @NgModule({

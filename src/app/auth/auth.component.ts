@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ComponentFactoryResolver, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AuthService, AuthResponse } from './auth.service';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
+import { PlaceHolderDirective } from '../shared/place-holder.directive';
+import { ErrorComponent } from '../shared/error/error.component';
 
 @Component({
   selector: 'app-auth',
@@ -15,8 +18,9 @@ export class AuthComponent implements OnInit {
   private password: string;
   private isLoading = false;
   private authObs: Observable<AuthResponse>;
+  @ViewChild(PlaceHolderDirective, {static: false}) alertHost: PlaceHolderDirective;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private route: Router, private componentFactoryResolver: ComponentFactoryResolver) { }
 
   ngOnInit() { }
 
@@ -39,7 +43,7 @@ export class AuthComponent implements OnInit {
     this.authObs.subscribe(
       responseData => {
         this.isLoading = false;
-        alert('authentication success');
+        this.route.navigate(['/jobs']);
       },
       error => {
         this.isLoading = false;
@@ -60,7 +64,17 @@ export class AuthComponent implements OnInit {
   }
 
   showError(message: string){
-    alert(message);
+    const alertComponentFactory = this.componentFactoryResolver.resolveComponentFactory(ErrorComponent);
+
+    // the place to be injected
+    const hostViewContainerRef = this.alertHost.viewContainerRef;
+
+    // clear anything that was rendered 
+    hostViewContainerRef.clear();
+
+    let alertComponentRef = hostViewContainerRef.createComponent(alertComponentFactory);
+
+    alertComponentRef.instance.message = message;
   }
 
 
