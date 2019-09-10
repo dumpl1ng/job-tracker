@@ -15,6 +15,7 @@ import { ErrorComponent } from './shared/error/error.component';
 import { PlaceHolderDirective } from './shared/place-holder.directive';
 import { JobsListComponent } from './jobs/jobs-list/jobs-list.component';
 import { JobsItemComponent } from './jobs/jobs-list/jobs-item/jobs-item.component';
+import { JobsEditComponent } from './jobs/jobs-edit/jobs-edit.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { JobsItemComponent } from './jobs/jobs-list/jobs-item/jobs-item.componen
     ErrorComponent,
     PlaceHolderDirective,
     JobsListComponent,
-    JobsItemComponent
+    JobsItemComponent,
+    JobsEditComponent
   ],
   imports: [
     BrowserModule,

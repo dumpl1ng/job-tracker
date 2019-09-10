@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Job } from '../job.model';
+import { JobService } from '../job.service';
 
 @Component({
   selector: 'app-jobs-list',
@@ -7,15 +8,12 @@ import { Job } from '../job.model';
   styleUrls: ['./jobs-list.component.css']
 })
 export class JobsListComponent implements OnInit {
+  jobs = []
 
-  jobs = [
-    new Job('test', 'Software Engineer', 'Hughes', 'offer', new Date()),
-    new Job('test', 'QA Engineer', 'test', 'offer', new Date())
-  ];
-
-  constructor() { }
+  constructor(private jobService: JobService) { }
 
   ngOnInit() {
+    this.jobs = this.jobService.getJobs();
   }
 
 }
