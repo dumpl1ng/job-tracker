@@ -13,8 +13,7 @@ export class JobsItemComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
 
   month(monthNumber: number) {

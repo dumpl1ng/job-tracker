@@ -1,24 +1,24 @@
 <div class="job-edit">
-    <form #jobEditForm="ngForm" ngSubmit="onSubmit(jobEditForm)">
+    <form #jobEditForm="ngForm" (ngSubmit)="onSubmit(jobEditForm)">
         <div class="row">
             <div class="form-group col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                <input type="text" name="job-title" id="job-title" class="form-control" placeholder="Job Title" [(ngModel)]="title">
+                <input type="text" name="job-title" id="job-title" class="form-control" placeholder="Job Title" [(ngModel)]="title" required>
             </div>
             <div class="form-group col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                <input type="text" name="company" id="company" class="form-control" placeholder="Company" [(ngModel)]="company">
+                <input type="text" name="company" id="company" class="form-control" placeholder="Company" [(ngModel)]="company" required>
             </div>
         </div>
         <div class="row">
             <div class="form-group col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                <input type="text" name="url" id="url" class="form-control" placeholder="URL" [(ngModel)]="url">
+                <input type="text" name="url" id="url" class="form-control" placeholder="URL" [(ngModel)]="url" required>
             </div>
         </div>
         <div class="row">
             <div class="form-group col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                <input type="date" name="date" id="date" class="form-control" [ngModel] ="date | date:'yyyy-MM-dd'">
+                <input type="date" name="date" id="date" class="form-control" [ngModel] ="date | date:'yyyy-MM-dd'" required>
             </div>
             <div class="form-group col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                <select class="form-control" name='status' id="status" [(ngModel)]="status">
+                <select class="form-control" name='status' id="status" [(ngModel)]="status" required>
                     <option [value]="s" *ngFor="let s of jobStatus">{{s}}</option>
                 </select>
             </div>
@@ -26,8 +26,8 @@
         <div class="row">
             <div class="form-group col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <div class="float-right">
-                    <button class="btn btn-primary">Save</button>&nbsp;
-                    <button class="btn btn-danger">Delete</button>
+                    <button type="submit" class="btn btn-primary">Save</button>&nbsp;
+                    <button type="submit" class="btn btn-danger">Delete</button>
                 </div>
             </div>
         </div>

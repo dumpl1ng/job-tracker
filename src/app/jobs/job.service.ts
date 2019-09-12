@@ -1,25 +1,25 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { AppModule } from '../app.module';
 import { Job } from './job.model';
+import { JobsDataService } from './jobs-data.service';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class JobService {
-  private jobs = [
-    new Job('hughes.com', 'Software Engineer', 'Hughes', 'offer', new Date()),
-    new Job('test.com', 'QA Engineer', 'test', 'declined', new Date())
-  ];
+  private jobs: Job[] = [];
   private jobStatus = [
     'offer', 'not applied', 'declined', 'interviewing', 'no response'
   ];
+  public jobChanged = new Subject<Job []>();
 
 
-  constructor() { }
-
+  constructor(private jobsDataService: JobsDataService) {
+  }
 
   public getJobs() {
-    return this.jobs.copyWithin(0 , 0);
+    return this.jobs.slice();
   }
 
   public getJob(index: number): Job {
@@ -28,6 +28,16 @@ export class JobService {
 
   public getStatus() {
     return this.jobStatus.copyWithin(0, 0);
+  }
+
+  public setJobs() {
+    this.jobsDataService.getAllJobs();
+    this.jobsDataService.jobData.subscribe(
+      next => {
+        this.jobs = next;
+        this.jobChanged.next(this.jobs);
+      }
+    )
   }
 
 }
