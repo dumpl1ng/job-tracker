@@ -8,8 +8,8 @@
         <div class="nav navbar-nav">
             <ul class="nav navbar-nav navbar-right">
                 <li class="nav-item active">
-                    <a class="nav-link" *ngIf="isAuthenticated">Log Out</a>
-                    <a class="nav-link" *ngIf="!isAuthenticated">Log In</a>
+                    <button class="btn btn-default" *ngIf="isAuthenticated" (click)='onLogout()'>Log Out</button>
+                    <button class="btn btn-default" *ngIf="!isAuthenticated">Log In</button>
                 </li>
             </ul>
         </div>

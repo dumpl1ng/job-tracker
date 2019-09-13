@@ -30,8 +30,8 @@ export class JobService {
     return this.jobStatus.copyWithin(0, 0);
   }
 
-  public setJobs() {
-    this.jobsDataService.getAllJobs();
+  public setJobs(userId: string) {
+    this.jobsDataService.getAllJobs(userId);
     this.jobsDataService.jobData.subscribe(
       next => {
         this.jobs = next;

@@ -20,6 +20,7 @@ export class JobsEditComponent implements OnInit {
   status: string;
   jobStatus: string[];
   isNewJob = false;
+  private userId: string;
 
   constructor(private router: Router, private route: ActivatedRoute,
     private jobService: JobService, private jobDataService: JobsDataService) { }
@@ -33,6 +34,12 @@ export class JobsEditComponent implements OnInit {
         if (params['id'] === 'new') {
           this.isNewJob = true;
         }
+
+        this.route.parent.params.subscribe(
+          (params: Params) => {
+            this.userId = params['userId'];
+          }
+        )
 
         if (!this.isNewJob) {
           this.id = +params['id'];
@@ -54,7 +61,7 @@ export class JobsEditComponent implements OnInit {
       if (!form.valid){
         alert('Form is not valid');
       } else {
-        this.jobDataService.addNewJob(new Job(this.url, this.title, this.company, this.status, new Date(form.value.date)));
+        this.jobDataService.addNewJob(new Job(this.url, this.title, this.company, this.status, new Date(form.value.date)), this.userId);
       }
     }
   }

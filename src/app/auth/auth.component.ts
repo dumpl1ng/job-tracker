@@ -43,7 +43,9 @@ export class AuthComponent implements OnInit {
     this.authObs.subscribe(
       responseData => {
         this.isLoading = false;
-        this.route.navigate(['/jobs']);
+        const userId = responseData.localId;
+
+        this.route.navigate(['user/' + userId + '/jobs']);
       },
       error => {
         this.isLoading = false;

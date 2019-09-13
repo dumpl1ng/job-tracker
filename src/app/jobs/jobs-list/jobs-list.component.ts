@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Job } from '../job.model';
 import { JobService } from '../job.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -16,13 +16,20 @@ export class JobsListComponent implements OnInit, OnDestroy{
   constructor(private jobService: JobService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.jobService.setJobs();
+    var userId;
+    this.route.params.subscribe(
+      (params: Params) => {
+        userId = params['userId'];
+
+        this.jobService.setJobs(userId);
     
-    this.jobsSubscription = this.jobService.jobChanged.subscribe(
-      next => {
-        this.jobs = next;
+        this.jobsSubscription = this.jobService.jobChanged.subscribe(
+          next => {
+            this.jobs = next;
+          }
+        )
       }
-    )
+    ).unsubscribe();
   }
 
   // add new job to existing jobs

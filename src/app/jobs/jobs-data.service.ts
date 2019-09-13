@@ -13,18 +13,18 @@ import { map, tap } from 'rxjs/operators';
 export class JobsDataService {
 
   public jobData = new Subject<Job[]>();
-  private API = 'https://job-tracker-465e6.firebaseio.com/jobs.json';
+  private API = 'https://job-tracker-465e6.firebaseio.com/users/';
 
   constructor(private http: HttpClient, private authService: AuthService) {
   }
 
-  addNewJob(job: Job) {
+  addNewJob(job: Job, userId: string) {
     this.http.post(
-      this.API,
+      this.API + userId + '/jobs.json',
       job
     ).subscribe(
       success => {
-        this.getAllJobs();
+        this.getAllJobs(userId);
       },
       error => {
         console.log(error);
@@ -34,10 +34,10 @@ export class JobsDataService {
   }
 
 
-  getAllJobs() {
+  getAllJobs(userId: string) {
 
     return this.http.get<Job[]>(
-      this.API
+      this.API + userId + '/jobs.json'
     ).pipe(
       map(responses => {
           let res: Job[] = [];
