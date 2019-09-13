@@ -66,4 +66,8 @@ export class JobsEditComponent implements OnInit {
     }
   }
 
+  OnDelete() {
+    this.jobService.deleteJob(this.id, this.userId);
+  }
+
 }

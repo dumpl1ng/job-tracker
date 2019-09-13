@@ -57,4 +57,10 @@ export class JobsDataService {
     ).subscribe();
   }
 
+
+  deleteJob(userId: string, jobTitle: string, jobCompany: string) {
+    this.http.get(
+      this.API + userId + '/jobs.json'
+    )
+  }
 }

@@ -30,6 +30,7 @@ export class JobService {
     return this.jobStatus.copyWithin(0, 0);
   }
 
+  // get all the jobs from the data service and forward them to component
   public setJobs(userId: string) {
     this.jobsDataService.getAllJobs(userId);
     this.jobsDataService.jobData.subscribe(
@@ -38,6 +39,12 @@ export class JobService {
         this.jobChanged.next(this.jobs);
       }
     )
+  }
+
+  // delete a job from the current database
+  public deleteJob(index: number, userId: string) {
+    delete this.jobs[index];
+    
   }
 
 }
