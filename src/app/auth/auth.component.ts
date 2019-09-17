@@ -16,7 +16,7 @@ export class AuthComponent implements OnInit {
   private isLogInMode = false;
   private email: string;
   private password: string;
-  private isLoading = false;
+  public isLoading = false;
   private authObs: Observable<AuthResponse>;
   @ViewChild(PlaceHolderDirective, {static: false}) alertHost: PlaceHolderDirective;
 
