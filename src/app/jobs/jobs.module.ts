@@ -10,6 +10,7 @@ import { JobsRoutingModule } from './jobs-routing.module';
 
 
 
+
 @NgModule({
   declarations: [
     JobsComponent,

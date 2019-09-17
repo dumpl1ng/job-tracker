@@ -23,7 +23,10 @@ export class JobsEditComponent implements OnInit {
   private userId: string;
 
   constructor(private router: Router, private route: ActivatedRoute,
-    private jobService: JobService, private jobDataService: JobsDataService) { }
+    private jobService: JobService, private jobDataService: JobsDataService) { 
+      this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+
+    }
 
   ngOnInit() {
 
@@ -62,12 +65,18 @@ export class JobsEditComponent implements OnInit {
         alert('Form is not valid');
       } else {
         this.jobDataService.addNewJob(new Job(this.url, this.title, this.company, this.status, new Date(form.value.date)), this.userId);
+        form.reset();
       }
+    }else{
+
+      this.jobService.updateJob(this.id, this.userId, 
+        new Job(this.url, this.title, this.company, this.status, new Date(form.value.date)));
     }
   }
 
-  OnDelete() {
+  OnDelete(form: NgForm) {
     this.jobService.deleteJob(this.id, this.userId);
+    form.reset();
   }
 
 }

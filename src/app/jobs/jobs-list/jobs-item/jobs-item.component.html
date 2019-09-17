@@ -1,13 +1,13 @@
 <div class="job-item">
-    <span class="h5">{{job.title}}</span>&nbsp;
-    <span>{{job.company}}</span> / 
-    <span style="color: gray; font-size: 80%;">{{month(job.dateApplied.getMonth())}} {{job.dateApplied.getDate()}} {{job.dateApplied.getYear() + 1900}}</span> &nbsp;
+    <span class="h5">{{job?.title}}</span>&nbsp;
+    <span>{{job?.company}}</span> / 
+    <span style="color: gray; font-size: 80%;">{{month(job?.dateApplied.getMonth())}} {{job?.dateApplied.getDate()}} {{job?.dateApplied.getYear() + 1900}}</span> &nbsp;
     <span [ngClass]="{
         'badge': true,
-        'badge-success': job.status == 'offer', 
-        'badge-warning': job.status == 'not applied',
-        'badge-danger': job.status == 'declined',
-        'badge-primary': job.status == 'interviewing',
-        'badge-secondary': job.status == 'no response'}">{{job.status}}</span>
+        'badge-success': job?.status == 'offer', 
+        'badge-warning': job?.status == 'not applied',
+        'badge-danger': job?.status == 'declined',
+        'badge-primary': job?.status == 'interviewing',
+        'badge-secondary': job?.status == 'no response'}">{{job?.status}}</span>
     <a [routerLink]="[index]" routerLinkActive="active"  class="float-right edit">Edit</a>
 </div>

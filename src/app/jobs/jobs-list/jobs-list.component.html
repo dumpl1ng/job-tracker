@@ -1,6 +1,8 @@
 <div id="list-holder">
     <ul class="list-group">
         <li class="list-group-item"><button class="btn btn-primary float-right" (click)="addNewJob()">ADD</button></li>
-        <li class="list-group-item" *ngFor="let job of jobs; let i = index"><app-jobs-item [job]="job" [index]="i"></app-jobs-item></li>
+        <ng-container *ngIf="jobs.length">
+            <li class="list-group-item" *ngFor="let job of jobs; let i = index"><app-jobs-item [job]="job" [index]="i"></app-jobs-item></li>
+        </ng-container>
     </ul>
 </div>

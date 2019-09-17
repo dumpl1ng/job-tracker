@@ -16,6 +16,12 @@ export class JobService {
 
 
   constructor(private jobsDataService: JobsDataService) {
+    this.jobsDataService.jobData.subscribe(
+      next => {
+        this.jobs = next;
+        this.jobChanged.next(this.jobs);
+      }
+    )
   }
 
   public getJobs() {
@@ -33,18 +39,23 @@ export class JobService {
   // get all the jobs from the data service and forward them to component
   public setJobs(userId: string) {
     this.jobsDataService.getAllJobs(userId);
-    this.jobsDataService.jobData.subscribe(
-      next => {
-        this.jobs = next;
-        this.jobChanged.next(this.jobs);
-      }
-    )
   }
 
   // delete a job from the current database
   public deleteJob(index: number, userId: string) {
     delete this.jobs[index];
-    
+    this.jobsDataService.deleteAllJobs(userId);
+    this.jobs.forEach(element => {
+      this.jobsDataService.addNewJob(element, userId);
+    });
   }
 
+  public updateJob(index: number, userId: string, updatedJob: Job) {
+    delete this.jobs[index];
+    this.jobs.push(updatedJob);
+    this.jobsDataService.deleteAllJobs(userId);
+    this.jobs.forEach(element => {
+      this.jobsDataService.addNewJob(element, userId);
+    });
+  }
 }
