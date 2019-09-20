@@ -21,7 +21,7 @@ export class JobsListComponent implements OnInit, OnDestroy{
       (params: Params) => {
         userId = params['userId'];
 
-        this.jobService.setJobs(userId);
+        this.jobService.getJobsFromRepository(userId);
     
         this.jobsSubscription = this.jobService.jobChanged.subscribe(
           next => {
@@ -39,6 +39,10 @@ export class JobsListComponent implements OnInit, OnDestroy{
 
   ngOnDestroy() {
     this.jobsSubscription.unsubscribe();
+  }
+
+  onOpenJobEdit(index: number) {
+    this.router.navigate([index], {relativeTo: this.route});
   }
 
 }

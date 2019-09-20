@@ -68,7 +68,8 @@ export class JobsEditComponent implements OnInit {
         form.reset();
       }
     }else{
-
+      console.log(form.value.date);
+      console.log( new Date(form.value.date));
       this.jobService.updateJob(this.id, this.userId, 
         new Job(this.url, this.title, this.company, this.status, new Date(form.value.date)));
     }
@@ -78,5 +79,7 @@ export class JobsEditComponent implements OnInit {
     this.jobService.deleteJob(this.id, this.userId);
     form.reset();
   }
+
+  
 
 }

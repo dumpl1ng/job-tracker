@@ -3,3 +3,7 @@
     padding: 0;
 }
 
+.list-job:hover {
+    background-color: lightgray;
+}
+

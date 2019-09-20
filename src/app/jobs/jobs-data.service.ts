@@ -34,9 +34,9 @@ export class JobsDataService {
   }
 
 
-  getAllJobs(userId: string) {
+ getAllJobs(userId: string) {
 
-    return this.http.get<Job[]>(
+    this.http.get<Job[]>(
       this.API + '/users/' + userId + '.json',
       {
         headers: new HttpHeaders({'X-Firebase-ETag': 'true'})
@@ -66,11 +66,25 @@ export class JobsDataService {
       this.API + '/users/' + userId + '.json'
     ).subscribe(
       success => {
-        this.getAllJobs(userId);
+
       },
       error => {
         console.log(error);
         alert('An Unknown error occured when try to delete the job');
+      }
+    );
+  }
+
+  onlyAddNewJob(job: Job, userId: string) {
+    this.http.post(
+      this.API + '/users/' + userId + '.json',
+      job
+    ).subscribe(
+      success => {
+      },
+      error => {
+        console.log(error);
+        alert('An Unknown error occured..');
       }
     );
   }
