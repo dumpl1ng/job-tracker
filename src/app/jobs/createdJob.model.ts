@@ -1,12 +1,10 @@
-export class Job {
-
+// model for newly created job
+export class createdJob {
     constructor(
-        public jobId: string,
         public url: string,
         public title: string,
         public company: string,
         public status: string,
         public dateApplied: Date
       ) { }
-      
 }

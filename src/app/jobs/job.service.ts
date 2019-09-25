@@ -24,16 +24,17 @@ export class JobService {
     )
   }
 
-
+  // set current job array
   public setJobs(jobs: Job[]) {
     this.jobs = jobs;
   }
 
-
+  // get all jobs
   public getJobs() {
     return this.jobs.slice();
   }
 
+  // get job based on index
   public getJob(index: number): Job {
     return this.jobs[index];
   }
@@ -50,18 +51,11 @@ export class JobService {
   // delete a job from the current database
   public deleteJob(index: number, userId: string) {
     this.jobs.splice(index, 1);
-    this.jobsDataService.deleteAllJobs(userId);
-    this.jobs.forEach(element => {
-      this.jobsDataService.addNewJob(element, userId);
-    });
+    this.jobsDataService.deleteJob(userId, this.getJob(index).jobId);
   }
 
+  need to add job request model
   public updateJob(index: number, userId: string, updatedJob: Job) {
-    this.jobs.splice(index, 1);
-    this.jobs.push(updatedJob);
-    this.jobsDataService.deleteAllJobs(userId);
-    this.jobs.forEach(element => {
-      this.jobsDataService.onlyAddNewJob(element, userId);
-    });
+    this.jobsDataService.updateJob(updatedJob, userId, this.getJob(index).jobId);
   }
 }

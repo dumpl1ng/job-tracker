@@ -4,6 +4,8 @@ import { NgForm } from '@angular/forms';
 import { Job } from '../job.model';
 import { JobService } from '../job.service';
 import { JobsDataService } from '../jobs-data.service';
+import { createdJob } from '../createdJob.model';
+
 
 @Component({
   selector: 'app-jobs-edit',
@@ -64,14 +66,16 @@ export class JobsEditComponent implements OnInit {
       if (!form.valid){
         alert('Form is not valid');
       } else {
-        this.jobDataService.addNewJob(new Job(this.url, this.title, this.company, this.status, new Date(form.value.date)), this.userId);
+        this.jobDataService.addNewJob(new createdJob(this.url, this.title, this.company, this.status, new Date(form.value.date)), this.userId);
         form.reset();
       }
     }else{
       console.log(form.value.date);
       console.log( new Date(form.value.date));
+
+      // id is the index of the job in jobService jobs array
       this.jobService.updateJob(this.id, this.userId, 
-        new Job(this.url, this.title, this.company, this.status, new Date(form.value.date)));
+        new Job('', this.url, this.title, this.company, this.status, new Date(form.value.date)));
     }
   }
 

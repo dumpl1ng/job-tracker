@@ -4,6 +4,7 @@ import { AuthService } from '../auth/auth.service';
 import { Subject } from 'rxjs';
 import { Job } from './job.model';
 import { map, tap } from 'rxjs/operators';
+import { createdJob } from './createdJob.model';
 
 
 
@@ -18,10 +19,10 @@ export class JobsDataService {
   constructor(private http: HttpClient, private authService: AuthService) {
   }
 
-  addNewJob(job: Job, userId: string) {
+  addNewJob(createdJob: createdJob, userId: string) {
     this.http.post(
       this.API + '/users/' + userId + '.json',
-      job
+      createdJob
     ).subscribe(
       success => {
         this.getAllJobs(userId);
@@ -37,16 +38,14 @@ export class JobsDataService {
  getAllJobs(userId: string) {
 
     this.http.get<Job[]>(
-      this.API + '/users/' + userId + '.json',
-      {
-        headers: new HttpHeaders({'X-Firebase-ETag': 'true'})
-      }
+      this.API + '/users/' + userId + '.json'
     ).pipe(
       map(responses => {
           let res: Job[] = [];
           // tslint:disable-next-line: forin
           for (const i in responses) {
             res.push(new Job(
+              responses[i].jobId,
               responses[i].url,
               responses[i].title,
               responses[i].company,
@@ -61,12 +60,13 @@ export class JobsDataService {
   }
 
 
-  deleteAllJobs(userId: string) {
+  deleteJob(userId: string, jobId: string) {
     this.http.delete(
-      this.API + '/users/' + userId + '.json'
+      this.API + '/users/' + userId + '/' + jobId + '.json'
     ).subscribe(
       success => {
-
+        this.getAllJobs(userId);
+        console.log('Successful delete this job with id' + jobId);
       },
       error => {
         console.log(error);
@@ -75,16 +75,17 @@ export class JobsDataService {
     );
   }
 
-  onlyAddNewJob(job: Job, userId: string) {
-    this.http.post(
-      this.API + '/users/' + userId + '.json',
+  updateJob(job: Job, userId: string, jobId: string) {
+    this.http.put(
+      this.API + '/users/' + userId + '/' + jobId + '.json',
       job
     ).subscribe(
       success => {
+        this.getAllJobs(userId);
       },
       error => {
         console.log(error);
-        alert('An Unknown error occured..');
+        alert('An Unknown error occured when trying to update the job with id' + jobId);
       }
     );
   }
