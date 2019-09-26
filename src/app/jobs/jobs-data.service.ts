@@ -5,6 +5,7 @@ import { Subject } from 'rxjs';
 import { Job } from './job.model';
 import { map, tap } from 'rxjs/operators';
 import { createdJob } from './createdJob.model';
+import { updatedJob } from './updatedJob.model';
 
 
 
@@ -45,7 +46,7 @@ export class JobsDataService {
           // tslint:disable-next-line: forin
           for (const i in responses) {
             res.push(new Job(
-              responses[i].jobId,
+              i,
               responses[i].url,
               responses[i].title,
               responses[i].company,
@@ -75,10 +76,10 @@ export class JobsDataService {
     );
   }
 
-  updateJob(job: Job, userId: string, jobId: string) {
+  updateJob(updatedJob: updatedJob, userId: string, jobId: string) {
     this.http.put(
       this.API + '/users/' + userId + '/' + jobId + '.json',
-      job
+      updatedJob
     ).subscribe(
       success => {
         this.getAllJobs(userId);

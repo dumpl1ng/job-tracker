@@ -1,0 +1,3 @@
+When click on a job item, only refresh the job edit instead of the whole page
+
+Restructure mobile view

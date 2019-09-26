@@ -3,6 +3,7 @@ import { AppModule } from '../app.module';
 import { Job } from './job.model';
 import { JobsDataService } from './jobs-data.service';
 import { Subject } from 'rxjs';
+import { updatedJob } from './updatedJob.model';
 
 @Injectable({
   providedIn: 'root'
@@ -39,6 +40,7 @@ export class JobService {
     return this.jobs[index];
   }
 
+  // return all job status
   public getStatus() {
     return this.jobStatus.copyWithin(0, 0);
   }
@@ -50,12 +52,12 @@ export class JobService {
 
   // delete a job from the current database
   public deleteJob(index: number, userId: string) {
-    this.jobs.splice(index, 1);
     this.jobsDataService.deleteJob(userId, this.getJob(index).jobId);
   }
 
-  need to add job request model
-  public updateJob(index: number, userId: string, updatedJob: Job) {
-    this.jobsDataService.updateJob(updatedJob, userId, this.getJob(index).jobId);
+  // update a job and put to database
+  public updateJob(index: number, userId: string, job: Job) {
+    const update = new updatedJob(job.url, job.title, job.company, job.status, job.dateApplied);
+    this.jobsDataService.updateJob(update, userId, this.getJob(index).jobId);
   }
 }
