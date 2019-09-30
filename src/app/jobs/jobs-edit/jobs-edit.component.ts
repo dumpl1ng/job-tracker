@@ -22,6 +22,8 @@ export class JobsEditComponent implements OnInit {
   status: string;
   jobStatus: string[];
   isNewJob = false;
+  copy = "copy";
+  isLoading = true;
   private userId: string;
 
   constructor(private router: Router, private route: ActivatedRoute,
@@ -84,6 +86,15 @@ export class JobsEditComponent implements OnInit {
     form.reset();
   }
 
+  copyToClipboard(inputElement) {
+
+    inputElement.select();
+    document.execCommand('copy');
+
+    this.copy = 'copied';
+  }
+
+  
   
 
 }
