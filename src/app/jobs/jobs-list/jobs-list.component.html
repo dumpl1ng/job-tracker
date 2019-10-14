@@ -2,9 +2,12 @@
     <ul class="list-group">
         <li class="list-group-item"><button class="btn btn-primary float-right" (click)="addNewJob()">ADD</button></li>
         <ng-container *ngIf="jobs.length">
-            <li class="list-group-item list-job" *ngFor="let job of jobs; let i = index" (click)="onOpenJobEdit(i)">
-                <app-jobs-item [job]="job" [index]="i"></app-jobs-item>
+            <li class="list-group-item list-job" *ngFor="let job of pageOfjobs;" (click)="onOpenJobEdit(job.index)">
+                <app-jobs-item [job]="job" [index]="job.index"></app-jobs-item>
             </li>
+            <div class="card-footer pb-0 pt-3">
+                <jw-pagination [items]="jobs" (changePage)="onChangePage($event)" [pageSize]="jobsPerPage" [initialPage]="getPageNum()"></jw-pagination>
+            </div>
         </ng-container>
     </ul>
 </div>

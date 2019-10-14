@@ -7,7 +7,7 @@ import { JobsEditComponent } from './jobs-edit/jobs-edit.component';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { JobsRoutingModule } from './jobs-routing.module';
-
+import { JwPaginationComponent } from 'jw-angular-pagination';
 
 
 
@@ -16,7 +16,8 @@ import { JobsRoutingModule } from './jobs-routing.module';
     JobsComponent,
     JobsListComponent,
     JobsItemComponent,
-    JobsEditComponent
+    JobsEditComponent,
+    JwPaginationComponent
   ],
   imports: [
     CommonModule,

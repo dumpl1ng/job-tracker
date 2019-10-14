@@ -60,4 +60,6 @@ export class JobService {
     const update = new updatedJob(job.url, job.title, job.company, job.status, job.dateApplied);
     this.jobsDataService.updateJob(update, userId, this.getJob(index).jobId);
   }
+
+  
 }

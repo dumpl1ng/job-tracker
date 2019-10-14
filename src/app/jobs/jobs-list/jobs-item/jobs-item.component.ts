@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Job } from '../../job.model';
+import { DisplayedJob } from '../../DisplayedJob.model';
 
 @Component({
   selector: 'app-jobs-item',
@@ -7,7 +8,7 @@ import { Job } from '../../job.model';
   styleUrls: ['./jobs-item.component.css']
 })
 export class JobsItemComponent implements OnInit {
-  @Input() job: Job;
+  @Input() job: DisplayedJob;
   @Input() index: number;
 
 

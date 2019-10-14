@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule, ExtraOptions } from '@angular/router';
 import { JobsComponent } from './jobs.component';
 import { JobsEditComponent } from './jobs-edit/jobs-edit.component';
 import { Authguard } from '../auth/auth-guard.service';
@@ -14,6 +14,10 @@ const routes: Routes = [
         ]
     },
 ];
+
+const routingConfiguration: ExtraOptions = {
+    paramsInheritanceStrategy: 'always'
+};
 
 @NgModule({
     imports: [RouterModule.forChild(routes)],
