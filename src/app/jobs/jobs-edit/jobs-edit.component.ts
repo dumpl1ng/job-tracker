@@ -8,6 +8,7 @@ import { createdJob } from '../createdJob.model';
 import { Subscription } from 'rxjs';
 
 
+
 @Component({
   selector: 'app-jobs-edit',
   templateUrl: './jobs-edit.component.html',
@@ -65,10 +66,10 @@ export class JobsEditComponent implements OnInit, OnDestroy {
     this.singleJobSubscription = this.jobService.singleJob.subscribe(
       next => {
         this.job = next;
+        this.isLoading = false;
         
-        //make sure when click on add new job, the form is blank
+        // make sure when click on add new job, the form is blank
         if (!this.isNewJob) {
-          this.isLoading = false;
           this.title = this.job.title;
           this.company = this.job.company;
           this.url = this.job.url;
@@ -77,6 +78,18 @@ export class JobsEditComponent implements OnInit, OnDestroy {
         }
       }
     )
+
+    // when navigate from /jobs to /jobs/:id, the data is already loaded, so the above will not work
+    if (!this.isNewJob) {
+      this.job = this.jobService.getJob(this.id);
+      this.isLoading = false;
+
+      this.title = this.job.title;
+      this.company = this.job.company;
+      this.url = this.job.url;
+      this.date = this.job.dateApplied;
+      this.status = this.job.status;
+    }
   }
 
 
@@ -112,8 +125,8 @@ export class JobsEditComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.singleJobSubscription.unsubscribe()
-  };
+    this.singleJobSubscription.unsubscribe();
+  }
 
 
 }

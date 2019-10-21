@@ -65,6 +65,8 @@ export class JobsListComponent implements OnInit, OnDestroy{
         }
       );
     }
+
+    
   }
 
   // add new job to existing jobs

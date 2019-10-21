@@ -2,7 +2,7 @@ import { Injectable, OnInit } from '@angular/core';
 import { AppModule } from '../app.module';
 import { Job } from './job.model';
 import { JobsDataService } from './jobs-data.service';
-import { Subject } from 'rxjs';
+import { Subject, BehaviorSubject } from 'rxjs';
 import { updatedJob } from './updatedJob.model';
 
 @Injectable({
@@ -14,6 +14,8 @@ export class JobService {
     'offer', 'not applied', 'declined', 'interviewing', 'no response'
   ];
   public jobChanged = new Subject<Job []>();
+
+  // this is initialized before the job edit component, so need to save the last data to give it to job edit component
   public singleJob = new Subject<Job>();
   private index = 0;
 
@@ -22,6 +24,7 @@ export class JobService {
       next => {
         this.jobs = next;
         this.jobChanged.next(this.jobs);
+
         this.singleJob.next(this.jobs[this.index]);
       }
     )
@@ -39,6 +42,7 @@ export class JobService {
 
   public awaitGetJob(index: number) {
     this.index = index;
+    this.singleJob.next(this.jobs[this.index]);
   }
 
   // get job based on index
