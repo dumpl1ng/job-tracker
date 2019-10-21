@@ -1,12 +1,38 @@
 <div id="list-holder">
     <ul class="list-group">
-        <li class="list-group-item"><button class="btn btn-primary float-right" (click)="addNewJob()">ADD</button></li>
+        <li class="list-group-item">
+            <div class="dropdown div-inline">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    SORT BY
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" >Date</a>
+                    <a class="dropdown-item" >Job Title</a>
+                </div>
+            </div> |
+            <div class="dropdown div-inline">
+                    <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        STATUS
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" >offer</a>
+                        <a class="dropdown-item" >not applied</a>
+                        <a class="dropdown-item" >declined</a>
+                        <a class="dropdown-item" >interviewing</a>
+                        <a class="dropdown-item" >no response</a>
+                    </div>
+                </div>
+            <button class="btn btn-primary float-right div-inline" (click)="addNewJob()">ADD</button>
+        </li>
         <ng-container *ngIf="jobs.length">
             <li class="list-group-item list-job" *ngFor="let job of pageOfjobs;" (click)="onOpenJobEdit(job.index)">
                 <app-jobs-item [job]="job" [index]="job.index"></app-jobs-item>
             </li>
             <div class="card-footer pb-3 pt-3">
-                <jw-pagination [items]="jobs" (changePage)="onChangePage($event)" [pageSize]="jobsPerPage" [initialPage]="getPageNum()"></jw-pagination>
+                <jw-pagination [items]="jobs" (changePage)="onChangePage($event)" [pageSize]="jobsPerPage"
+                    [initialPage]="getPageNum()"></jw-pagination>
             </div>
         </ng-container>
     </ul>

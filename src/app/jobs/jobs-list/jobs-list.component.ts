@@ -14,6 +14,8 @@ export class JobsListComponent implements OnInit, OnDestroy{
   jobs: DisplayedJob[] = [];
   jobIndex = 0;
 
+  private isNewJob = false;
+
   // for pagination
   pageOfjobs: Array<any>;
   private jobsSubscription: Subscription;
@@ -50,7 +52,12 @@ export class JobsListComponent implements OnInit, OnDestroy{
       this.childRouteSubscription =  this.route.firstChild.params.subscribe(
         (params: Params) => {
           if(params['id']){
-            this.jobIndex = +params['id'];
+            
+            if(params['id'] === 'new'){
+              this.isNewJob = true;
+            }else{
+              this.jobIndex = +params['id'];
+            }
           }
         }
       );
@@ -80,7 +87,10 @@ export class JobsListComponent implements OnInit, OnDestroy{
 
   // get the page index from the job index
   getPageNum() {
-    let pageNum = Math.ceil((this.jobIndex + 1) / this.jobsPerPage);
+    let pageNum = 0;
+    if( !this.isNewJob ){
+      pageNum = Math.ceil((this.jobIndex + 1) / this.jobsPerPage);
+    }
     
     return pageNum;
   }

@@ -7,3 +7,6 @@
     background-color: lightgray;
 }
 
+.div-inline {
+    display: inline-block;
+}

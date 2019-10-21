@@ -56,6 +56,8 @@ export class JobsEditComponent implements OnInit, OnDestroy {
           this.id = +params['id'];
           this.jobService.awaitGetJob(this.id);
 
+        } else {
+          this.isLoading = false;
         }
       }
     )
@@ -63,13 +65,16 @@ export class JobsEditComponent implements OnInit, OnDestroy {
     this.singleJobSubscription = this.jobService.singleJob.subscribe(
       next => {
         this.job = next;
-
-        this.isLoading = false;
-        this.title = this.job.title;
-        this.company = this.job.company;
-        this.url = this.job.url;
-        this.date = this.job.dateApplied;
-        this.status = this.job.status;
+        
+        //make sure when click on add new job, the form is blank
+        if (!this.isNewJob) {
+          this.isLoading = false;
+          this.title = this.job.title;
+          this.company = this.job.company;
+          this.url = this.job.url;
+          this.date = this.job.dateApplied;
+          this.status = this.job.status;
+        }
       }
     )
   }
