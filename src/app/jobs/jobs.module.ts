@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { JobsRoutingModule } from './jobs-routing.module';
 import { JwPaginationComponent } from 'jw-angular-pagination';
 import { LoadingSpinnerComponent } from '../shared/loading-spinner/loading-spinner.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 
@@ -24,7 +25,8 @@ import { LoadingSpinnerComponent } from '../shared/loading-spinner/loading-spinn
     CommonModule,
     RouterModule,
     FormsModule,
-    JobsRoutingModule
+    JobsRoutingModule,
+    SharedModule
   ],
   exports: [
     JobsComponent,

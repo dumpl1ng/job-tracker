@@ -27,6 +27,7 @@ export class JobsEditComponent implements OnInit, OnDestroy {
   isLoading = true;
   private userId: string;
 
+  // make sure when data is ready, the edit page will load the data
   private singleJobSubscription: Subscription;
 
   constructor(private router: Router, private route: ActivatedRoute,

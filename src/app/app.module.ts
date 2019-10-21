@@ -7,13 +7,12 @@ import { HeaderComponent } from './header/header.component';
 import { AnimationComponent } from './auth/animation/animation.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { PageNotFoundComponentComponent } from './page-not-found-component/page-not-found-component.component';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 import { ErrorComponent } from './shared/error/error.component';
-import { PlaceHolderDirective } from './shared/place-holder.directive';
 import { JobsModule } from './jobs/jobs.module';
 import { PageNotFoundComponentModule } from './page-not-found-component/page-not-found-component.module';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
+import { SharedModule } from './shared/shared.module';
 
 
 @NgModule({
@@ -21,11 +20,7 @@ import { AuthInterceptorService } from './auth/auth-interceptor.service';
     AppComponent,
     AuthComponent,
     HeaderComponent,
-    AnimationComponent,
-    LoadingSpinnerComponent,
-    ErrorComponent,
-    PlaceHolderDirective,
-    LoadingSpinnerComponent
+    AnimationComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +28,8 @@ import { AuthInterceptorService } from './auth/auth-interceptor.service';
     FormsModule,
     HttpClientModule,
     JobsModule,
-    PageNotFoundComponentModule
+    PageNotFoundComponentModule,
+    SharedModule
   ],
   entryComponents: [ErrorComponent],
   providers: [
