@@ -1,10 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { Job } from '../job.model';
 import { JobService } from '../job.service';
 import { JobsDataService } from '../jobs-data.service';
 import { createdJob } from '../createdJob.model';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -12,7 +13,7 @@ import { createdJob } from '../createdJob.model';
   templateUrl: './jobs-edit.component.html',
   styleUrls: ['./jobs-edit.component.css']
 })
-export class JobsEditComponent implements OnInit {
+export class JobsEditComponent implements OnInit, OnDestroy {
   job: Job;
   id: number;
   title: string;
@@ -26,11 +27,13 @@ export class JobsEditComponent implements OnInit {
   isLoading = true;
   private userId: string;
 
-  constructor(private router: Router, private route: ActivatedRoute,
-    private jobService: JobService, private jobDataService: JobsDataService) { 
-      this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+  private singleJobSubscription: Subscription;
 
-    }
+  constructor(private router: Router, private route: ActivatedRoute,
+    private jobService: JobService, private jobDataService: JobsDataService) {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+
+  }
 
   ngOnInit() {
 
@@ -50,14 +53,22 @@ export class JobsEditComponent implements OnInit {
 
         if (!this.isNewJob) {
           this.id = +params['id'];
-          this.job = this.jobService.getJob(this.id);
+          this.jobService.awaitGetJob(this.id);
 
-          this.title = this.job.title;
-          this.company = this.job.company;
-          this.url = this.job.url;
-          this.date = this.job.dateApplied;
-          this.status = this.job.status;
         }
+      }
+    )
+
+    this.singleJobSubscription = this.jobService.singleJob.subscribe(
+      next => {
+        this.job = next;
+
+        this.isLoading = false;
+        this.title = this.job.title;
+        this.company = this.job.company;
+        this.url = this.job.url;
+        this.date = this.job.dateApplied;
+        this.status = this.job.status;
       }
     )
   }
@@ -65,18 +76,18 @@ export class JobsEditComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     if (this.isNewJob) {
-      if (!form.valid){
+      if (!form.valid) {
         alert('Form is not valid');
       } else {
         this.jobDataService.addNewJob(new createdJob(this.url, this.title, this.company, this.status, new Date(form.value.date)), this.userId);
         form.reset();
       }
-    }else{
+    } else {
       console.log(form.value.date);
-      console.log( new Date(form.value.date));
+      console.log(new Date(form.value.date));
 
       // id is the index of the job in jobService jobs array
-      this.jobService.updateJob(this.id, this.userId, 
+      this.jobService.updateJob(this.id, this.userId,
         new Job('', this.url, this.title, this.company, this.status, new Date(form.value.date)));
     }
   }
@@ -94,7 +105,9 @@ export class JobsEditComponent implements OnInit {
     this.copy = 'copied';
   }
 
-  
-  
+  ngOnDestroy() {
+    this.singleJobSubscription.unsubscribe()
+  };
+
 
 }

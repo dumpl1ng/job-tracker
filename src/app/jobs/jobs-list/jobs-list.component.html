@@ -5,7 +5,7 @@
             <li class="list-group-item list-job" *ngFor="let job of pageOfjobs;" (click)="onOpenJobEdit(job.index)">
                 <app-jobs-item [job]="job" [index]="job.index"></app-jobs-item>
             </li>
-            <div class="card-footer pb-0 pt-3">
+            <div class="card-footer pb-3 pt-3">
                 <jw-pagination [items]="jobs" (changePage)="onChangePage($event)" [pageSize]="jobsPerPage" [initialPage]="getPageNum()"></jw-pagination>
             </div>
         </ng-container>

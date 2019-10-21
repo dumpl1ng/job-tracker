@@ -5,6 +5,7 @@ import { JobsEditComponent } from './jobs-edit/jobs-edit.component';
 import { Authguard } from '../auth/auth-guard.service';
 
 
+
 const routes: Routes = [
     {
         path: 'user/:userId/jobs', component: JobsComponent,

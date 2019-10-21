@@ -14,13 +14,15 @@ export class JobService {
     'offer', 'not applied', 'declined', 'interviewing', 'no response'
   ];
   public jobChanged = new Subject<Job []>();
-
+  public singleJob = new Subject<Job>();
+  private index = 0;
 
   constructor(private jobsDataService: JobsDataService) {
     this.jobsDataService.jobData.subscribe(
       next => {
         this.jobs = next;
         this.jobChanged.next(this.jobs);
+        this.singleJob.next(this.jobs[this.index]);
       }
     )
   }
@@ -33,6 +35,10 @@ export class JobService {
   // get all jobs
   public getJobs() {
     return this.jobs.slice();
+  }
+
+  public awaitGetJob(index: number) {
+    this.index = index;
   }
 
   // get job based on index

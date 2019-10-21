@@ -8,6 +8,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { JobsRoutingModule } from './jobs-routing.module';
 import { JwPaginationComponent } from 'jw-angular-pagination';
+import { LoadingSpinnerComponent } from '../shared/loading-spinner/loading-spinner.component';
 
 
 

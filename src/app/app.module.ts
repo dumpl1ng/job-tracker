@@ -24,7 +24,8 @@ import { AuthInterceptorService } from './auth/auth-interceptor.service';
     AnimationComponent,
     LoadingSpinnerComponent,
     ErrorComponent,
-    PlaceHolderDirective
+    PlaceHolderDirective,
+    LoadingSpinnerComponent
   ],
   imports: [
     BrowserModule,

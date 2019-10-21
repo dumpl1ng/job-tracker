@@ -1,4 +1,4 @@
-<div class="job-edit">
+<div class="job-edit" *ngIf="!isLoading">
     <form #jobEditForm="ngForm" (ngSubmit)="onSubmit(jobEditForm)">
         <div class="row">
             <div class="form-group col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
@@ -40,3 +40,7 @@
 
     </form>
 </div>
+
+<!-- <div>
+    <app-loading-spinner></app-loading-spinner>
+</div> -->
