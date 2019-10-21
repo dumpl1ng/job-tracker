@@ -13,6 +13,7 @@ import { DisplayedJob } from '../DisplayedJob.model';
 export class JobsListComponent implements OnInit, OnDestroy{
   jobs: DisplayedJob[] = [];
   jobIndex = 0;
+  jobStatus: string[] = [];
 
   private isNewJob = false;
 
@@ -27,6 +28,7 @@ export class JobsListComponent implements OnInit, OnDestroy{
 
   ngOnInit() {
     var userId;
+    this.jobStatus = this.jobService.getStatus();
     this.route.params.subscribe(
       (params: Params) => {
         userId = params['userId'];
@@ -36,6 +38,7 @@ export class JobsListComponent implements OnInit, OnDestroy{
     
         this.jobsSubscription = this.jobService.jobChanged.subscribe(
           next => {
+            this.jobs = [];
             for (let i = 0; i < next.length; i++){
               let tempJob = next[i];
               let displayedJob = new DisplayedJob(i, tempJob.url, tempJob.title, tempJob.company, tempJob.status, tempJob.dateApplied);
@@ -43,13 +46,13 @@ export class JobsListComponent implements OnInit, OnDestroy{
               this.jobs.push(displayedJob);
             }
           }
-        )
+        );
       }
-    ).unsubscribe();
+    );
     
     // get the job index from the url
-    if (this.route.children != null){
-      this.childRouteSubscription =  this.route.firstChild.params.subscribe(
+    if (this.route.firstChild != null){
+      this.route.firstChild.params.subscribe(
         (params: Params) => {
           if(params['id']){
             
@@ -71,10 +74,6 @@ export class JobsListComponent implements OnInit, OnDestroy{
 
   ngOnDestroy() {
     this.jobsSubscription.unsubscribe();
-    
-    if(this.childRouteSubscription != null){
-      this.childRouteSubscription.unsubscribe();
-    }
   }
 
   onOpenJobEdit(index: number) {
@@ -93,5 +92,19 @@ export class JobsListComponent implements OnInit, OnDestroy{
     }
     
     return pageNum;
+  }
+
+  sortByStatus(status: string) {
+    this.jobs.sort( (a, b) => this.compareByStatus( a , b, status));
+  }
+
+  private compareByStatus(a: DisplayedJob, b: DisplayedJob, status: string) {
+    if(a.status === status && b.status !== status) {
+      return -1;
+    }
+    if (a.status !== status && b.status === status) {
+      return 1;
+    }
+    return 0;
   }
 }

@@ -1,7 +1,7 @@
 <div id="list-holder">
     <ul class="list-group">
         <li class="list-group-item">
-            <div class="dropdown div-inline">
+            <!-- <div class="dropdown div-inline">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     SORT BY
@@ -12,18 +12,15 @@
                 </div>
             </div> |
             <div class="dropdown div-inline">
-                    <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenuButton"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        STATUS
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" >offer</a>
-                        <a class="dropdown-item" >not applied</a>
-                        <a class="dropdown-item" >declined</a>
-                        <a class="dropdown-item" >interviewing</a>
-                        <a class="dropdown-item" >no response</a>
-                    </div>
+                <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenuButton"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    STATUS
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" *ngFor="let status of jobStatus"
+                        (click)="sortByStatus(status)">{{status}}</a>
                 </div>
+            </div> -->
             <button class="btn btn-primary float-right div-inline" (click)="addNewJob()">ADD</button>
         </li>
         <ng-container *ngIf="jobs.length">
