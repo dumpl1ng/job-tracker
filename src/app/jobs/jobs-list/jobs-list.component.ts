@@ -23,8 +23,7 @@ export class JobsListComponent implements OnInit, OnDestroy{
   pageOfjobs: Array<any>;
   private jobsSubscription: Subscription;
 
-  public jobsPerPage = 2;
-  private childRouteSubscription: Subscription;
+  public jobsPerPage = 10;
 
   constructor(private jobService: JobService, private router: Router, private route: ActivatedRoute) { }
 
