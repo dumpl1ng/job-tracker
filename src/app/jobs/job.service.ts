@@ -56,7 +56,8 @@ export class JobService {
   }
 
   // get all the jobs from the data service and forward them to component
-  public getJobsFromRepository(userId: string) {
+  public getJobsFromRepository(userId: string, jobStatusSortKey: string) {
+    this.jobsDataService.changeStatusSortKey(jobStatusSortKey);
     this.jobsDataService.getAllJobs(userId);
   }
 

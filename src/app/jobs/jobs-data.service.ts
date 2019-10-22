@@ -17,6 +17,8 @@ export class JobsDataService {
   public jobData = new Subject<Job[]>();
   private API = 'https://job-tracker-465e6.firebaseio.com/jobs';
 
+  private jobStatusSortKey = 'not applied';
+
   constructor(private http: HttpClient, private authService: AuthService) {
   }
 
@@ -54,6 +56,8 @@ export class JobsDataService {
               new Date(responses[i].dateApplied)
             ));
           }
+
+          res = this.sortByStatus(res, this.jobStatusSortKey);
           this.jobData.next(res);
         }
       )
@@ -89,5 +93,23 @@ export class JobsDataService {
         alert('An Unknown error occured when trying to update the job with id' + jobId);
       }
     );
+  }
+
+  private sortByStatus(jobs: Job[], status: string) {
+    return jobs.sort( (a, b) => this.compareByStatus( a , b, status));
+  }
+
+  private compareByStatus(a: Job, b: Job, status: string) {
+    if(a.status === status && b.status !== status) {
+      return -1;
+    }
+    if (a.status !== status && b.status === status) {
+      return 1;
+    }
+    return 0;
+  }
+
+  public changeStatusSortKey(newStatus: string) {
+    this.jobStatusSortKey = newStatus;
   }
 }

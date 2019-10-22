@@ -14,27 +14,36 @@ export class JobsListComponent implements OnInit, OnDestroy{
   jobs: DisplayedJob[] = [];
   jobIndex = 0;
   jobStatus: string[] = [];
-
+  jobStatusSortKey = "not applied";
+  private userId;
   private isNewJob = false;
+  
 
   // for pagination
   pageOfjobs: Array<any>;
   private jobsSubscription: Subscription;
 
-  public jobsPerPage = 10;
+  public jobsPerPage = 2;
   private childRouteSubscription: Subscription;
 
   constructor(private jobService: JobService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    var userId;
     this.jobStatus = this.jobService.getStatus();
+
+    // memorize the user selected status
+    const localStorageStatusSortKey = JSON.parse(localStorage.getItem('job-tracker-jobStatusSortKey'));
+
+    if (localStorageStatusSortKey) {
+      this.jobStatusSortKey = localStorageStatusSortKey;
+    }
+
     this.route.params.subscribe(
       (params: Params) => {
-        userId = params['userId'];
+        this.userId = params['userId'];
 
 
-        this.jobService.getJobsFromRepository(userId);
+        this.jobService.getJobsFromRepository(this.userId, this.jobStatusSortKey);
     
         this.jobsSubscription = this.jobService.jobChanged.subscribe(
           next => {
@@ -66,7 +75,6 @@ export class JobsListComponent implements OnInit, OnDestroy{
       );
     }
 
-    
   }
 
   // add new job to existing jobs
@@ -97,16 +105,9 @@ export class JobsListComponent implements OnInit, OnDestroy{
   }
 
   sortByStatus(status: string) {
-    this.jobs.sort( (a, b) => this.compareByStatus( a , b, status));
+    localStorage.setItem('job-tracker-jobStatusSortKey', JSON.stringify(status));
+    this.jobStatusSortKey = status;
+    this.jobService.getJobsFromRepository(this.userId, this.jobStatusSortKey);
   }
-
-  private compareByStatus(a: DisplayedJob, b: DisplayedJob, status: string) {
-    if(a.status === status && b.status !== status) {
-      return -1;
-    }
-    if (a.status !== status && b.status === status) {
-      return 1;
-    }
-    return 0;
-  }
+  
 }

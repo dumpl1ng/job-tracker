@@ -10,17 +10,25 @@
                     <a class="dropdown-item" >Date</a>
                     <a class="dropdown-item" >Job Title</a>
                 </div>
-            </div> |
+            </div> | -->
             <div class="dropdown div-inline">
-                <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenuButton"
+                <button class="dropdown-toggle"
+                    [ngClass]="{
+                    'btn': true,
+                    'btn-success': jobStatusSortKey == 'offer', 
+                    'btn-warning': jobStatusSortKey == 'not applied',
+                    'btn-danger': jobStatusSortKey == 'declined',
+                    'btn-primary': jobStatusSortKey == 'interviewing',
+                    'btn-secondary': jobStatusSortKey == 'no response'}"
+                    type="button" id="dropdownMenuButton"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    STATUS
+                    SORT BY: {{jobStatusSortKey | uppercase}}
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <a class="dropdown-item" *ngFor="let status of jobStatus"
                         (click)="sortByStatus(status)">{{status}}</a>
                 </div>
-            </div> -->
+            </div>
             <button class="btn btn-primary float-right div-inline" (click)="addNewJob()">ADD</button>
         </li>
         <ng-container *ngIf="jobs.length">
