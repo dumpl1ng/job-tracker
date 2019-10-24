@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { PlaceHolderDirective } from '../shared/place-holder.directive';
 import { ErrorComponent } from '../shared/error/error.component';
 
+
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
