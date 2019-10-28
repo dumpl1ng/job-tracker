@@ -4,9 +4,26 @@ import { JobService } from '../job.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { DisplayedJob } from '../DisplayedJob.model';
+import { trigger, state, style, transition, animate } from '@angular/animations';
+
+const anim = [
+  trigger('openCloseSearching',[
+    state('open', style({
+      width: '100px',
+      opacity: '1'
+    })),
+    state('closed', style({
+      width: '0px',
+      opacity: '0'
+    })),
+    transition('open => closed', [animate('0.5s')]),
+    transition('closed => open', [animate('0.5s')])
+  ])
+];
 
 @Component({
   selector: 'app-jobs-list',
+  animations: anim,
   templateUrl: './jobs-list.component.html',
   styleUrls: ['./jobs-list.component.css']
 })
@@ -23,6 +40,8 @@ export class JobsListComponent implements OnInit, OnDestroy{
   pageOfjobs: Array<any>;
   public jobsPerPage = 10;
 
+  // for animation
+  isSearchingOpen = false;
 
   private jobsSubscription: Subscription;
 
@@ -108,6 +127,10 @@ export class JobsListComponent implements OnInit, OnDestroy{
     localStorage.setItem('job-tracker-jobStatusSortKey', JSON.stringify(status));
     this.jobStatusSortKey = status;
     this.jobService.getJobsFromRepository(this.userId, this.jobStatusSortKey);
+  }
+
+  toggleButton() {
+    this.isSearchingOpen = !this.isSearchingOpen;
   }
   
 }

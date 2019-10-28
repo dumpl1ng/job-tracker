@@ -29,9 +29,15 @@
                         (click)="sortByStatus(status)">{{status}}</a>
                 </div>
             </div>
+            |
+            <button class="btn btn-info" id="search-button" (click)="toggleButton()" >{{ isSearchingOpen ? 'CLOSE' : 'SEARCH'}}</button>
+            |
+            <span id="search"  [@openCloseSearching]="isSearchingOpen ? 'open' : 'closed'">
+                <input id="search-input" type="text" placeholder="company name">
+            </span>
             <button class="btn btn-primary float-right div-inline" (click)="addNewJob()">ADD</button>
         </li>
-        <ng-container *ngIf="jobs.length">
+        <ng-container *ngIf="jobs.length && !isSearchingOpen">
             <li class="list-group-item list-job" *ngFor="let job of pageOfjobs;" (click)="onOpenJobEdit(job.index)">
                 <app-jobs-item [job]="job" [index]="job.index"></app-jobs-item>
             </li>
@@ -39,6 +45,9 @@
                 <jw-pagination [items]="jobs" (changePage)="onChangePage($event)" [pageSize]="jobsPerPage"
                     [initialPage]="getPageNum()"></jw-pagination>
             </div>
+        </ng-container>
+        <ng-container *ngIf="isSearchingOpen">
+            
         </ng-container>
     </ul>
 </div>
