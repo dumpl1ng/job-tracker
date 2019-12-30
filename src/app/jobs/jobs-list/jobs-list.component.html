@@ -1,16 +1,7 @@
 <div id="list-holder">
     <ul class="list-group">
         <li class="list-group-item">
-            <!-- <div class="dropdown div-inline">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    SORT BY
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" >Date</a>
-                    <a class="dropdown-item" >Job Title</a>
-                </div>
-            </div> | -->
+            
             <div class="dropdown div-inline">
                 <button class="dropdown-toggle"
                     [ngClass]="{
@@ -33,7 +24,7 @@
             <button class="btn btn-info" id="search-button" (click)="toggleButton()" >{{ isSearchingOpen ? 'CLOSE' : 'SEARCH'}}</button>
             |
             <span id="search"  [@openCloseSearching]="isSearchingOpen ? 'open' : 'closed'">
-                <input id="search-input" type="text" placeholder="company name">
+                <input id="search-input" type="text" placeholder="company name" [(ngModel)]="searchInput" (keyup)="searchForCompany($event)">
             </span>
             <button class="btn btn-primary float-right div-inline" (click)="addNewJob()">ADD</button>
         </li>
@@ -47,7 +38,9 @@
             </div>
         </ng-container>
         <ng-container *ngIf="isSearchingOpen">
-            
+            <li class="list-group-item list-job" *ngFor="let job of searchedJobs;" (click)="onOpenJobEdit(job.index)">
+                <app-jobs-item [job]="job" [index]="job.index"></app-jobs-item>
+            </li>
         </ng-container>
     </ul>
 </div>

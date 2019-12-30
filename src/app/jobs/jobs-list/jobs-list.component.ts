@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Job } from '../job.model';
 import { JobService } from '../job.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subscription, Subject } from 'rxjs';
 import { DisplayedJob } from '../DisplayedJob.model';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 
@@ -34,6 +34,11 @@ export class JobsListComponent implements OnInit, OnDestroy{
   jobStatusSortKey = "not applied";
   private userId;
   private isNewJob = false;
+
+  // for searching
+  searchInput: string = '';
+  searchedJobs: DisplayedJob[] = [];
+  
   
 
   // for pagination
@@ -131,6 +136,19 @@ export class JobsListComponent implements OnInit, OnDestroy{
 
   toggleButton() {
     this.isSearchingOpen = !this.isSearchingOpen;
+  }
+
+  // search for the company name that user typed
+  searchForCompany(event: any) {
+    this.searchedJobs = this.jobs.filter(job => this.insensitiveStringCompare(job.company, event.target.value));
+    console.log(this.searchedJobs);
+  }
+
+  // compare string in case insensitive way
+  insensitiveStringCompare(a, b) {
+    return typeof a === 'string' && typeof b === 'string'
+        ? a.localeCompare(b, undefined, { sensitivity: 'accent' }) === 0
+        : a === b;
   }
   
 }
