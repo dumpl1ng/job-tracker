@@ -78,6 +78,9 @@ export class JobsListComponent implements OnInit, OnDestroy{
 
               this.jobs.push(displayedJob);
             }
+            if (this.isSearchingOpen){
+              this.searchForCompany();
+            }
           }
         );
       }
@@ -139,16 +142,10 @@ export class JobsListComponent implements OnInit, OnDestroy{
   }
 
   // search for the company name that user typed
-  searchForCompany(event: any) {
-    this.searchedJobs = this.jobs.filter(job => this.insensitiveStringCompare(job.company, event.target.value));
-    console.log(this.searchedJobs);
+  searchForCompany() {
+    // check if the lowercased jobs contain the lowercased user input
+    this.searchedJobs = this.jobs.filter(job => job.company.toLowerCase().includes(this.searchInput.toLowerCase()));
   }
 
-  // compare string in case insensitive way
-  insensitiveStringCompare(a, b) {
-    return typeof a === 'string' && typeof b === 'string'
-        ? a.localeCompare(b, undefined, { sensitivity: 'accent' }) === 0
-        : a === b;
-  }
   
 }
