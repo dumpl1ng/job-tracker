@@ -24,7 +24,7 @@
             <button class="btn btn-info" id="search-button" (click)="toggleButton()" >{{ isSearchingOpen ? 'CLOSE' : 'SEARCH'}}</button>
             |
             <span id="search"  [@openCloseSearching]="isSearchingOpen ? 'open' : 'closed'">
-                <input id="search-input" type="text" placeholder="company name" [(ngModel)]="searchInput" (keyup)="searchForCompany($event)">
+                <input id="search-input" type="text" placeholder="company name" [(ngModel)]="searchInput" (keyup)="searchForCompany()">
             </span>
             <button class="btn btn-primary float-right div-inline" (click)="addNewJob()">ADD</button>
         </li>
